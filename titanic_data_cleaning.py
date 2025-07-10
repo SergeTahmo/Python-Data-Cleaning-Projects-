@@ -1,137 +1,100 @@
+Titanic Data Cleaning & Preprocessing Script
 
+This Python script performs essential data cleaning and preprocessing steps on the Titanic dataset,
+commonly used for data science tutorials and predictive modeling.
+
+ Key Features:
+- Missing Value Treatment
+- Duplicate Removal
+- Outlier Detection (Z-score)
+- Exploratory Data Analysis (EDA) Visualizations
+- Cleaned Dataset Export
+
+ Dependencies:
+- pandas
+- numpy
+- matplotlib
+- seaborn
 """
-This repository contains a collection of Python scripts and Jupyter Notebooks
-for cleaning and preprocessing data before analysis or modeling.
-
-It includes missing value treatment, outlier detection, duplicate removal,
-data type conversion, and Exploratory Data Analysis (EDA).
-"""
-
-# === Folder Structure ===
-# data-cleaning-scripts/
-# ├── missing_values/
-# │   └── handle_missing_values.ipynb
-# ├── duplicates_handling/
-# │   └── remove_duplicates.ipynb
-# ├── outlier_detection/
-# │   └── detect_outliers_zscore.py
-# ├── eda_visualization/
-# │   └── eda_titanic.ipynb
-# ├── utils/
-# │   └── data_loader.py
-# ├── datasets/
-# │   ├── titanic.csv
-# │   └── nyc_311_data_sample.csv
-# └── README.md
-
-# === Sample: handle_missing_values.ipynb ===
 
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-# Load dataset
-df = pd.read_csv('../datasets/titanic.csv')
+# ==========================
+# Step 1: Load the Dataset
+# ==========================
+df = pd.read_csv("datasets/titanic.csv")
 
-# Summary of missing data
-print(df.isnull().sum())
+print(" Initial Data Overview:")
+print("Shape:", df.shape)
+print("Missing Values:\n", df.isnull().sum())
+print("Data Types:\n", df.dtypes)
 
-# Fill missing age with median
+# ==========================
+# Step 2: Handle Missing Values
+# ==========================
+# Fill missing Age values with median
 df['Age'].fillna(df['Age'].median(), inplace=True)
 
-# Drop rows where Embarked is missing
-df.dropna(subset=['Embarked'], inplace=True)
+# Fill missing Embarked values with the mode
+df['Embarked'].fillna(df['Embarked'].mode()[0], inplace=True)
 
-# Replace missing Cabin with 'Unknown'
-df['Cabin'].fillna('Unknown', inplace=True)
+# Replace missing Cabin values with 'Unknown'
+df['Cabin'].fillna("Unknown", inplace=True)
 
-# Save cleaned data
-df.to_csv('../datasets/titanic_cleaned.csv', index=False)
+# ==========================
+# Step 3: Remove Duplicates
+# ==========================
+duplicates = df.duplicated().sum()
+print(f"\n🧹 Duplicate Rows Found: {duplicates}")
+df.drop_duplicates(inplace=True)
 
-# === Sample: remove_duplicates.ipynb ===
-
-# Check for duplicates
-print("Duplicate Rows:", df.duplicated().sum())
-
-# Drop duplicate rows
-df_cleaned = df.drop_duplicates()
-
-# Save output
-df_cleaned.to_csv('../datasets/titanic_no_duplicates.csv', index=False)
-
-# === detect_outliers_zscore.py ===
-
-import numpy as np
-
+# ==========================
+# Step 4: Outlier Detection (Fare column)
+# ==========================
 def detect_outliers_zscore(data, threshold=3):
     mean = np.mean(data)
     std = np.std(data)
     z_scores = [(x - mean) / std for x in data]
     return [x for x, z in zip(data, z_scores) if abs(z) > threshold]
 
-if __name__ == '__main__':
-    import pandas as pd
-    df = pd.read_csv('../datasets/titanic.csv')
-    fare_outliers = detect_outliers_zscore(df['Fare'].dropna())
-    print(f"Detected outliers in Fare: {fare_outliers[:5]}")
+fare_outliers = detect_outliers_zscore(df['Fare'].dropna())
+print(f"\n🚨 Fare Outliers Detected (sample): {fare_outliers[:5]}")
 
-# === eda_titanic.ipynb ===
+# ==========================
+# Step 5: Exploratory Data Analysis
+# ==========================
+print("\n📈 Generating Visuals...")
 
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-# Load cleaned dataset
-df = pd.read_csv('../datasets/titanic_cleaned.csv')
-
-# Distribution of Age
+# Age Distribution
 sns.histplot(df['Age'], kde=True)
-plt.title('Age Distribution')
+plt.title("Age Distribution")
+plt.xlabel("Age")
+plt.ylabel("Count")
+plt.tight_layout()
 plt.show()
 
-# Survival rate by class
-sns.barplot(x='Pclass', y='Survived', data=df)
-plt.title('Survival Rate by Passenger Class')
+# Survival Rate by Passenger Class
+sns.barplot(x="Pclass", y="Survived", data=df)
+plt.title("Survival Rate by Passenger Class")
+plt.xlabel("Passenger Class")
+plt.ylabel("Survival Rate")
+plt.tight_layout()
 plt.show()
 
-# === data_loader.py ===
+# Gender-based Survival
+sns.countplot(x="Sex", hue="Survived", data=df)
+plt.title("Survival by Gender")
+plt.xlabel("Sex")
+plt.ylabel("Count")
+plt.tight_layout()
+plt.show()
 
-def load_data(filepath):
-    import pandas as pd
-    return pd.read_csv(filepath)
-
-# === README.md ===
-
-"""
-# Data Cleaning & Preprocessing Scripts
-
-This repository includes Python scripts and notebooks for essential data cleaning tasks:
-
-## 🧹 Main Topics
-- Handling Missing Values
-- Removing Duplicates
-- Outlier Detection (Z-score)
-- Exploratory Data Analysis (EDA)
-
-## Datasets Used
-- Titanic Dataset (Kaggle)
-- NYC 311 Complaints (Open Data)
-
-## 🛠 Tools
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-
-## Example Visuals
-- Histogram of Age Distribution
-- Survival Rate by Passenger Class
-
-## How to Use
-Clone the repo and explore individual folders:
-```bash
-cd missing_values
-jupyter notebook handle_missing_values.ipynb
-```
-
----
-
-Contributions welcome. Happy cleaning!
-"""
+# ==========================
+# Step 6: Export Cleaned Data
+# ==========================
+output_path = "datasets/titanic_cleaned.csv"
+df.to_csv(output_path, index=False)
+print(f"\n Cleaned dataset saved to: {output_path}")
