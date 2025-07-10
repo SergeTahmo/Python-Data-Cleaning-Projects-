@@ -57,12 +57,6 @@ To transform raw, messy real-world data into a structured and analysis-ready for
 
 ---
 
-### 📌 Dataset Source
-Data is based on NYC Open Data's 311 Service Requests:  
-[https://data.cityofnewyork.us/Social-Services/311-Service-Requests](https://data.cityofnewyork.us/Social-Services/311-Service-Requests)
-
----
-
 ### 📤 How to Run
 
 ```bash
