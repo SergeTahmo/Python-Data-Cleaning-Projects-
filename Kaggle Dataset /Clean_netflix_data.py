@@ -24,7 +24,7 @@ import numpy as np
 # Load the dataset
 df = pd.read_csv("datasets/netflix_titles.csv")
 
-print("\n🔎 Initial Overview")
+print("\n Initial Overview")
 print("Shape:", df.shape)
 print("Missing Values:\n", df.isnull().sum())
 
