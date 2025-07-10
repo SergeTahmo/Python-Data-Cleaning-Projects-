@@ -1,4 +1,4 @@
-Titanic Data Cleaning & Preprocessing Script
+## Titanic Data Cleaning & Preprocessing Script
 
 This Python script performs essential data cleaning and preprocessing steps on the Titanic dataset,
 commonly used for data science tutorials and predictive modeling.
