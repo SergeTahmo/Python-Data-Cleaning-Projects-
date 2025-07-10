@@ -1,10 +1,10 @@
 """
-🧼 Titanic Data Cleaning & Preprocessing Script
+Titanic Data Cleaning & Preprocessing Script
 
 This Python script performs essential data cleaning and preprocessing steps on the Titanic dataset,
 commonly used for data science tutorials and predictive modeling.
 
-🔍 Key Features:
+Key Features:
 - **Missing Value Treatment**:
     - Fills missing `Age` with median.
     - Replaces missing `Embarked` with mode.
@@ -22,13 +22,13 @@ commonly used for data science tutorials and predictive modeling.
 - **Data Export**:
     - Saves the cleaned dataset to `titanic_cleaned.csv` for further analysis or modeling.
 
-📦 Dependencies:
+ Dependencies:
 - pandas
 - numpy
 - matplotlib
 - seaborn
 
-💡 Ideal for:
+Ideal for:
 - Beginners practicing data cleaning workflows
 - Data scientists preparing Titanic data for ML models
 - Analysts performing exploratory visualizations
