@@ -1,6 +1,6 @@
 ## 📊 Data Cleaning & Preprocessing – (Kaggle)
 
-This project focuses on preparing the `[Dataset Name]` dataset—sourced from Kaggle—for downstream data analysis or machine learning workflows. The dataset initially contains inconsistencies typical of real-world data, such as missing values, duplicates, mixed data types, and outliers.
+This project focuses on preparing the dataset—sourced from Kaggle—for downstream data analysis or machine learning workflows. The dataset initially contains inconsistencies typical of real-world data, such as missing values, duplicates, mixed data types, and outliers.
 
 ---
 
@@ -17,7 +17,7 @@ To clean and preprocess the dataset to ensure:
 
 This dataset was downloaded from Kaggle:
 **[Dataset Title]**  
-🔗 [Link to Kaggle dataset](https://www.kaggle.com/your-dataset-link)
+🔗 [Link to Kaggle dataset](https://www.kaggle.com)
 
 ---
 
