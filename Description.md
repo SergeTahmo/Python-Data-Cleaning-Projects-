@@ -1,4 +1,3 @@
-"""
 Titanic Data Cleaning & Preprocessing Script
 
 This Python script performs essential data cleaning and preprocessing steps on the Titanic dataset,
@@ -32,5 +31,3 @@ Ideal for:
 - Beginners practicing data cleaning workflows
 - Data scientists preparing Titanic data for ML models
 - Analysts performing exploratory visualizations
-
-"""
